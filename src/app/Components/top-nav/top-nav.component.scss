@@ -1,0 +1,26 @@
+.spacer {
+  flex: 1 1 auto;
+}
+mat-toolbar {
+  padding: 3% 0;
+}
+
+mat-toolbar .icon {
+  width: 10%;
+}
+
+mat-toolbar button img {
+  width: 100%;
+}
+
+
+
+.example-full-width {
+  width: 100%;
+  padding: 0 25%;
+}
+
+
+.example-full-width input {
+  width: 100%;
+}
