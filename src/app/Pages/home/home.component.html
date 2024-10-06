@@ -1,9 +1,47 @@
-<!-- <app-side-nav></app-side-nav> -->
+<mat-toolbar>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+    (click)="drawer.toggle()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <img src="../../../assets/Spotify_Full_Logo_RGB_White.png" alt="" />
+  </button>
+  <span class="spacer"></span>
+  <button
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon"
+  >
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+  >
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <button mat-button (click)="getMyDetails()">Get my profile</button>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="sidenav-content">
+      <div class="container">
+        <h1>Hi, {{ userDetails?.display_name }} <img [src]="" alt=""></h1>
+        <br />
+        <button mat-button (click)="reload()">Home</button>
+        <button mat-button [routerLink]="'myprofile'">Your account</button>
+      </div>
     </div>
-  </div>
-</div>
+  </mat-drawer>
+
+  <div class="example-sidenav-content"></div>
+</mat-drawer-container>

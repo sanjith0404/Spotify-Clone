@@ -21,6 +21,7 @@ import { SideNavComponent } from './Components/side-nav/side-nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './Pages/login/login.component';
+import { MyprofileComponent } from './Pages/myprofile/myprofile.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoginComponent } from './Pages/login/login.component';
     SongCardComponent,
     SideNavComponent,
     LoginComponent,
+    MyprofileComponent,
   ],
   imports: [
     BrowserModule,

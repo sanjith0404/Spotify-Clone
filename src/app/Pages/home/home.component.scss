@@ -1,1 +1,47 @@
+mat-drawer-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
 
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+mat-drawer-container .sidenav-content img {
+  width: 100%;
+  max-height: fit-content;
+  padding: 20px;
+}
+
+mat-drawer-container {
+  background-color: #494949;
+}
+
+mat-drawer-container .sidenav-content button {
+  width: 100%;
+  margin: 15px 0px;
+}
+.example-sidenav {
+  padding: 20px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar button {
+  width: fit-content;
+}
+mat-toolbar button img {
+  width: auto;
+}
+
+mat-drawer-container mat-drawer {
+  width: 40%;
+}
+
+mat-drawer-container mat-drawer .sidenav-content .container h1 {
+  text-align: center;
+}
