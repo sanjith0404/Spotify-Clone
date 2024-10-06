@@ -8,6 +8,7 @@ import { SpotifyAPIService } from 'src/app/Services/Spotify/spotify-api.service'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   userDetails: any;
+  newReleases: any;
   constructor(private spotifyService: SpotifyAPIService) {}
   ngOnInit(): void {
     window.sessionStorage.setItem(
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       window.location.hash.substring(14, 221)
     );
     this.getMyDetails();
+    this.getNewreleases();
   }
 
   getMyDetails() {
@@ -24,6 +26,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   reload() {
     window.location.reload();
+  }
+
+  getNewreleases() {
+    this.spotifyService.getNewReleases().subscribe((res) => {
+      this.newReleases = res;
+      console.log(res);
+    });
   }
 
   ngOnDestroy(): void {

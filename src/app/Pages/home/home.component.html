@@ -35,10 +35,10 @@
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <div class="sidenav-content">
       <div class="container">
-        <h1>Hi, {{ userDetails?.display_name }} <img [src]="" alt=""></h1>
+        <h1>Hi, {{ userDetails?.display_name }}</h1>
         <br />
         <button mat-button (click)="reload()">Home</button>
-        <button mat-button [routerLink]="'myprofile'">Your account</button>
+        <button mat-button [routerLink]="'/myprofile'">Your account</button>
       </div>
     </div>
   </mat-drawer>

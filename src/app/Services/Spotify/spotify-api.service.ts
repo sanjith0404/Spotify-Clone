@@ -27,4 +27,12 @@ export class SpotifyAPIService {
     let params = { headers: header };
     return this.http.get(searchURL, params);
   }
+
+  getNewReleases() {
+    let searchURL = 'https://api.spotify.com/v1/browse/new-releases';
+    let header = new HttpHeaders();
+    header = header.append('Authorization', `Bearer  ${this.token}`);
+    let params = { headers: header };
+    return this.http.get(`${searchURL}`, params);
+  }
 }
