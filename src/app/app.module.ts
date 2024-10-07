@@ -22,6 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './Pages/login/login.component';
 import { MyprofileComponent } from './Pages/myprofile/myprofile.component';
+import { MatCardModule } from '@angular/material/card';
+import { TrackModalComponent } from './Modals/track-modal/track-modal.component';
+import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { MyprofileComponent } from './Pages/myprofile/myprofile.component';
     SideNavComponent,
     LoginComponent,
     MyprofileComponent,
+    TrackModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ import { MyprofileComponent } from './Pages/myprofile/myprofile.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatCardModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

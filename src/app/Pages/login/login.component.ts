@@ -12,7 +12,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   authEndPoint = 'https://accounts.spotify.com/authorize';
   redirectURL = 'http://localhost:4200/home';
   responseType = 'token';
-  loginURL = `${this.authEndPoint}?client_id=${this.clientID}&redirect_uri=${this.redirectURL}&response_type=${this.responseType}`;
+  scope =
+    'user-read-currently-playing user-read-playback-state user-modify-playback-state';
+  loginURL = `${this.authEndPoint}?client_id=${this.clientID}&redirect_uri=${this.redirectURL}&response_type=${this.responseType}&scope=${this.scope}`;
 
   ngOnInit(): void {
     document.body.className = 'selector';
