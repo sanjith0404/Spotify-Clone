@@ -42,42 +42,167 @@
   </mat-drawer>
 </mat-drawer-container> -->
 
-<div class="container">
-  <h1 style="text-align: center; color: white; font-style: italic">
-    New Releases
-  </h1>
-  <br />
-  <div class="row">
-    <div class="col-md-3" *ngFor="let album of newReleases?.albums?.items">
-      <mat-card class="example-card" appearance="outlined">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title
-            style="color: white; font-style: italic; font-size: 15px"
-            >{{ album?.name }}</mat-card-title
-          >
-          <mat-card-subtitle
-            >Total Tracks: {{ album?.total_tracks }}</mat-card-subtitle
-          >
-        </mat-card-header>
-        <img
-          mat-card-image
-          [src]="album.images[0].url"
-          style="margin: 10px; max-width: 300px"
-        />
-        <mat-card-content>
-          <h5 style="text-align: center; color: white">Artists</h5>
-          <ul>
-            <li *ngFor="let artist of album.artists" style="color: white">
-              {{ artist?.name }}
-            </li>
-          </ul>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="openDialog(album)">View Songs</button>
-        </mat-card-actions>
-      </mat-card>
-      <br />
-    </div>
+<mat-grid-list cols="8" rowHeight="100px">
+  <div class="first">
+    <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="9"
+      [style.background]="'#1d1d1d'"
+      style="margin-right: 1px"
+    >
+      <div>
+        <h1 style="color: white">Hi,{{ userDetails?.display_name }}</h1>
+        <button mat-button style="width: 100%">Home</button>
+      </div>
+    </mat-grid-tile>
   </div>
-</div>
+
+  <div class="second">
+    <mat-grid-tile [colspan]="6" [rowspan]="3" [style.background]="'#7e7e7e'">
+      <div class="container" style="padding-top: 5px">
+        <p style="color: white; text-align: center">
+          Your Top Picks
+          <mat-button-toggle-group
+            appearance="legacy"
+            name="fontStyle"
+            aria-label="Font Style"
+            style="background-color: #3e3e3e"
+            (change)="getUsersTopArtists($event.value)"
+          >
+            <mat-button-toggle
+              #artist
+              style="color: white"
+              value="artists"
+              [checked]="'true'"
+              >Artists</mat-button-toggle
+            >
+            <mat-button-toggle style="color: white" value="tracks"
+              >Tracks</mat-button-toggle
+            >
+          </mat-button-toggle-group>
+        </p>
+        <!-- <h2 style="color: white">
+          {{ userDetails?.display_name }}'s Top artists
+        </h2> -->
+        <div class="row">
+          <div class="col-md-3" *ngFor="let artist of topArtist">
+            <mat-card
+              class="example-card"
+              appearance="outlined"
+              style="max-height: max-content"
+            >
+              <mat-card-header>
+                <mat-card-title-group>
+                  <mat-card-title style="color: white">{{
+                    artist?.name
+                  }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ artist?.followers?.total }} Followers</mat-card-subtitle
+                  >
+
+                  <img
+                    *ngIf="artist.type == 'artist'"
+                    mat-card-sm-image
+                    [src]="artist?.images[2]?.url"
+                  />
+                </mat-card-title-group>
+              </mat-card-header>
+              <mat-card-content> </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </div>
+  <div class="third">
+    <mat-grid-tile
+      [colspan]="6"
+      [rowspan]="6"
+      [style.background]="'#7e7e7e'"
+      style="overflow-y: auto"
+    >
+      <div class="container" style="padding-top: 5%">
+        <div class="row">
+          <mat-card
+            class="example-card1"
+            appearance="outlined"
+            style="max-height: max-content"
+          >
+            <mat-card-header>
+              <mat-card-title-group>
+                <mat-card-title style="color: white"
+                  >New Releases</mat-card-title
+                >
+
+                <img
+                  mat-card-lg-image
+                  [src]="newReleases?.albums.items[0].images[2].url"
+                />
+              </mat-card-title-group>
+            </mat-card-header>
+            <mat-card-content>
+              <p style="color: white">
+                Discover the freshest beats and latest hits with our curated
+                playlist of new release songs, keeping your music library
+                up-to-date!
+              </p>
+            </mat-card-content>
+            <mat-accordion>
+              <mat-expansion-panel showToggle>
+                <mat-expansion-panel-header>
+                  View Albums
+                </mat-expansion-panel-header>
+                <div class="container">
+                  <br />
+                  <div class="row">
+                    <div
+                      class="col-md-6"
+                      *ngFor="let album of newReleases?.albums?.items"
+                    >
+                      <mat-card class="example-card" appearance="outlined">
+                        <mat-card-header>
+                          <div
+                            mat-card-avatar
+                            class="example-header-image"
+                          ></div>
+                          <mat-card-title
+                            style="
+                              color: white;
+                              font-style: italic;
+                              font-size: 15px;
+                              text-align: left;
+                            "
+                            >{{ album?.name }}</mat-card-title
+                          >
+                          <mat-card-subtitle
+                            >Total Tracks:
+                            {{ album?.total_tracks }}</mat-card-subtitle
+                          >
+                        </mat-card-header>
+                        <img
+                          mat-card-image
+                          [src]="album.images[0].url"
+                          style="margin: 10px; max-width: 300px"
+                        />
+                        <mat-card-actions>
+                          <button
+                            style="width: 100%"
+                            mat-button
+                            (click)="openDialog(album)"
+                          >
+                            Play Album
+                          </button>
+                        </mat-card-actions>
+                      </mat-card>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-card>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </div>
+</mat-grid-list>

@@ -89,4 +89,19 @@ export class SpotifyAPIService {
     let uriPlay = { uris: [uri] };
     return this.http.put(url, uriPlay, params);
   }
+  playAlbum(uri: string, deviceId: string) {
+    let url = 'https://api.spotify.com/v1/me/player/play';
+    let header = new HttpHeaders();
+    header = header.append('Authorization', `Bearer  ${this.token}`);
+    let params = { headers: header };
+    let uriPlay = { context_uri: uri };
+    return this.http.put(`${url}/${deviceId}`, uriPlay, params);
+  }
+  getUsersTopArtists(value: any) {
+    let searchURL = 'https://api.spotify.com/v1/me/top/';
+    let header = new HttpHeaders();
+    header = header.append('Authorization', `Bearer  ${this.token}`);
+    let params = { headers: header };
+    return this.http.get(`${searchURL}${value}?limit=8`, params);
+  }
 }

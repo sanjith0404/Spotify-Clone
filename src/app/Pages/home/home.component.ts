@@ -17,15 +17,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   userDetails: any;
   newReleases: any;
   newAlbums: any = [];
+  topArtist: any = [];
+  topType: any = 'artists';
+  tiles: any = [
+    { text: 'One', cols: 1, rows: 6, color: 'lightblue' },
+    { text: 'Two', cols: 1, rows: 2, color: 'lightgreen' },
+    { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
+    { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
+  ];
   dialog = inject(MatDialog);
   constructor(private spotifyService: SpotifyAPIService) {}
   ngOnInit(): void {
     window.sessionStorage.setItem(
       'token',
-      window.location.hash.substring(14, 230)
+      window.location.hash.substring(14, 236)
     );
     this.getMyDetails();
     this.getNewreleases();
+    this.getUsersTopArtists('artists');
   }
 
   getMyDetails() {
@@ -52,15 +61,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.spotifyService
       .getNewAlbumsReleases(album.href)
       .subscribe((res: any) => {
-        console.log(res);
         songs = res.tracks.items;
         this.dialog.open(TrackModalComponent, {
           data: {
             songs: songs,
             albumName: album.name,
+            albumImages: res.images,
+            fullAlbum: res,
           },
         });
       });
+  }
+
+  getUsersTopArtists(value: any) {
+    this.topType = value;
+    this.spotifyService.getUsersTopArtists(value).subscribe((res: any) => {
+      this.topArtist = res.items;
+    });
   }
 
   ngOnDestroy(): void {

@@ -1,13 +1,33 @@
 <h2 mat-dialog-title style="text-align: center">
   {{ data.albumName.toUpperCase() }}
 </h2>
+<div class="container">
+  <div class="row">
+    <mat-form-field>
+      <mat-label style="color: white">Choose Device</mat-label>
+      <mat-select (selectionChange)="startPlayBack($event)">
+        <mat-option [value]="device.id" *ngFor="let device of devices">{{
+          device?.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
 <mat-dialog-content>
-  <ul>
-    <li *ngFor="let song of data.songs">
-      <button mat-button (click)="openSong(song)">
-        {{ song?.name }}
-      </button>
-      duration: {{ song?.duration_ms }}ms
-    </li>
-  </ul>
+  <div class="container">
+    <div class="row">
+      <img [src]="data?.albumImages[1].url" alt="" />
+    </div>
+  </div>
 </mat-dialog-content>
+
+<div class="container">
+  <div class="row" style="justify-content: space-evenly">
+    <button mat-mini-fab>
+      <mat-icon fontIcon="skip_previous"></mat-icon>
+    </button>
+    <button mat-mini-fab><mat-icon fontIcon="pausePlay"></mat-icon></button>
+    <button mat-mini-fab><mat-icon fontIcon="skip_next"></mat-icon></button>
+  </div>
+</div>

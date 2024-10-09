@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   redirectURL = 'http://localhost:4200/home';
   responseType = 'token';
   scope =
-    'user-read-currently-playing user-read-playback-state user-modify-playback-state';
+    'user-read-currently-playing user-read-playback-state user-modify-playback-state user-top-read';
   loginURL = `${this.authEndPoint}?client_id=${this.clientID}&redirect_uri=${this.redirectURL}&response_type=${this.responseType}&scope=${this.scope}`;
 
   ngOnInit(): void {

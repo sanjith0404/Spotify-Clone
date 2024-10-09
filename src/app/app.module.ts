@@ -7,6 +7,7 @@ import { HomeComponent } from './Pages/home/home.component';
 import { TopNavComponent } from './Components/top-nav/top-nav.component';
 import { SongCardComponent } from './Components/song-card/song-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 //Angular Materials
 
@@ -25,6 +26,9 @@ import { MyprofileComponent } from './Pages/myprofile/myprofile.component';
 import { MatCardModule } from '@angular/material/card';
 import { TrackModalComponent } from './Modals/track-modal/track-modal.component';
 import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,10 @@ import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     MatCardModule,
     MatDialogModule,
+    MatGridListModule,
+    MatButtonToggleModule,
+    MatExpansionModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

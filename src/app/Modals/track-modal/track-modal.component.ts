@@ -9,8 +9,11 @@ import { SpotifyAPIService } from 'src/app/Services/Spotify/spotify-api.service'
 })
 export class TrackModalComponent implements OnInit {
   constructor(private spotifyService: SpotifyAPIService) {}
+  devices: any = [];
   ngOnInit(): void {
     console.log(this.data);
+
+    this.getDevices();
   }
   data = inject(MAT_DIALOG_DATA);
   songs: any = this.data.songs;
@@ -25,5 +28,18 @@ export class TrackModalComponent implements OnInit {
         this.spotifyService.playSong(songUri, deviceId).subscribe();
       });
     });
+  }
+
+  getDevices() {
+    this.spotifyService.getCurrentDevice().subscribe((response: any) => {
+      this.devices = response.devices;
+      console.log(this.devices);
+    });
+  }
+
+  startPlayBack(device: any) {
+    this.spotifyService
+      .playAlbum(this.data.fullAlbum.uri, device.value)
+      .subscribe();
   }
 }
