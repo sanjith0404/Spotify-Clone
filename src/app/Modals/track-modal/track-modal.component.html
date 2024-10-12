@@ -27,7 +27,9 @@
     <button mat-mini-fab>
       <mat-icon fontIcon="skip_previous"></mat-icon>
     </button>
-    <button mat-mini-fab><mat-icon fontIcon="pausePlay"></mat-icon></button>
+    <button mat-mini-fab (click)="pausePlayBack()">
+      <mat-icon fontIcon="pausePlay"></mat-icon>
+    </button>
     <button mat-mini-fab><mat-icon fontIcon="skip_next"></mat-icon></button>
   </div>
 </div>

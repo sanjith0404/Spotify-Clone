@@ -95,7 +95,15 @@ export class SpotifyAPIService {
     header = header.append('Authorization', `Bearer  ${this.token}`);
     let params = { headers: header };
     let uriPlay = { context_uri: uri };
-    return this.http.put(`${url}/${deviceId}`, uriPlay, params);
+    return this.http.put(`${url}?device_id=${deviceId}`, uriPlay, params);
+  }
+
+  pausePlayBack(device: any) {
+    let url = 'https://api.spotify.com/v1/me/player/pause';
+    let header = new HttpHeaders();
+    header = header.append('Authorization', `Bearer  ${this.token}`);
+    let params = { headers: header };
+    return this.http.put(`${url}?device_id=${device}`, params);
   }
   getUsersTopArtists(value: any) {
     let searchURL = 'https://api.spotify.com/v1/me/top/';
@@ -103,5 +111,12 @@ export class SpotifyAPIService {
     header = header.append('Authorization', `Bearer  ${this.token}`);
     let params = { headers: header };
     return this.http.get(`${searchURL}${value}?limit=8`, params);
+  }
+  getUsersPlaylist(userName: string) {
+    let searchURL = `https://api.spotify.com/v1/users/${userName}/playlists`;
+    let header = new HttpHeaders();
+    header = header.append('Authorization', `Bearer  ${this.token}`);
+    let params = { headers: header };
+    return this.http.get(`${searchURL}?limit=8`, params);
   }
 }

@@ -42,4 +42,8 @@ export class TrackModalComponent implements OnInit {
       .playAlbum(this.data.fullAlbum.uri, device.value)
       .subscribe();
   }
+
+  pausePlayBack() {
+    this.spotifyService.pausePlayBack(this.devices[0].id).subscribe();
+  }
 }

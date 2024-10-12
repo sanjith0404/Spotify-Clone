@@ -16,6 +16,10 @@ import { TrackModalComponent } from 'src/app/Modals/track-modal/track-modal.comp
 export class HomeComponent implements OnInit, OnDestroy {
   userDetails: any;
   newReleases: any;
+  fragment = '';
+  params: any;
+  accessToken = '';
+
   newAlbums: any = [];
   topArtist: any = [];
   topType: any = 'artists';
@@ -28,10 +32,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   dialog = inject(MatDialog);
   constructor(private spotifyService: SpotifyAPIService) {}
   ngOnInit(): void {
-    window.sessionStorage.setItem(
-      'token',
-      window.location.hash.substring(14, 236)
-    );
+    this.fragment = window.location.hash.split('#')[1];
+    this.params = new URLSearchParams(this.fragment);
+    this.accessToken = this.params.get('access_token');
+    window.sessionStorage.setItem('token', this.accessToken);
     this.getMyDetails();
     this.getNewreleases();
     this.getUsersTopArtists('artists');
@@ -40,6 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   getMyDetails() {
     this.spotifyService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res;
+
+      this.getUsersPlaylist(this.userDetails?.id);
     });
   }
   reload() {
@@ -54,6 +60,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   getToken() {
     this.spotifyService.getToken().subscribe((res: any) => {
       console.log(res);
+    });
+  }
+  getUsersPlaylist(userName: string) {
+    this.spotifyService.getUsersPlaylist(userName).subscribe((res: any) => {
+      this.topArtist = res.items;
     });
   }
   openDialog(album: any) {
@@ -74,10 +85,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getUsersTopArtists(value: any) {
-    this.topType = value;
-    this.spotifyService.getUsersTopArtists(value).subscribe((res: any) => {
-      this.topArtist = res.items;
-    });
+    if (value == 'playlists') {
+    } else {
+      this.topType = value;
+      this.spotifyService.getUsersTopArtists(value).subscribe((res: any) => {
+        this.topArtist = res.items;
+      });
+    }
   }
 
   ngOnDestroy(): void {
