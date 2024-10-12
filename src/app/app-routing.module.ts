@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './Pages/home/home.component';
 import { LoginComponent } from './Pages/login/login.component';
 import { MyprofileComponent } from './Pages/myprofile/myprofile.component';
+const location = window.location.hash;
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'myprofile',
+    path: 'home/myprofile',
     component: MyprofileComponent,
   },
 ];

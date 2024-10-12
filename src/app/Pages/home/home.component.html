@@ -53,6 +53,10 @@
       <div>
         <h1 style="color: white">Hi,{{ userDetails?.display_name }}</h1>
         <button mat-button style="width: 100%">Home</button>
+
+        <button mat-button [routerLink]="'myprofile'" style="width: 100%">
+          My profile
+        </button>
       </div>
     </mat-grid-tile>
   </div>

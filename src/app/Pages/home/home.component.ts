@@ -32,10 +32,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   dialog = inject(MatDialog);
   constructor(private spotifyService: SpotifyAPIService) {}
   ngOnInit(): void {
-    this.fragment = window.location.hash.split('#')[1];
+    this.fragment = window.location.href.split('?')[1];
     this.params = new URLSearchParams(this.fragment);
-    this.accessToken = this.params.get('access_token');
-    window.sessionStorage.setItem('token', this.accessToken);
+    this.accessToken = this.params.get('code');
+    this.spotifyService.code = this.accessToken;
+    this.getToken();
     this.getMyDetails();
     this.getNewreleases();
     this.getUsersTopArtists('artists');
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   getToken() {
     this.spotifyService.getToken().subscribe((res: any) => {
-      console.log(res);
+      window.localStorage.setItem('token', res.access_token);
     });
   }
   getUsersPlaylist(userName: string) {

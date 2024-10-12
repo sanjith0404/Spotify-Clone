@@ -5,13 +5,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SpotifyAPIService {
-  token = window.sessionStorage.getItem('token');
+  token = window.localStorage.getItem('token');
   clientID = '42212e1a5b85482494ecbbc3ca8579eb';
   authURL = 'https://accounts.spotify.com/api/token';
   clientSecret = '207bab8ddca1403a80eff236e0141291';
   authEndPoint = 'https://accounts.spotify.com/authorize';
   redirectURL = 'http://localhost:4200/home';
   responseType = 'token';
+  code: any;
   constructor(private http: HttpClient) {}
 
   getSearchResults(searchvalue: string) {
@@ -53,12 +54,12 @@ export class SpotifyAPIService {
   getToken() {
     let searchURL = 'https://accounts.spotify.com/api/token';
     let header = new HttpHeaders();
-    header = header.append('Authorization', `Basic ${this.token}`);
-    header = header.append('json', 'true');
+    let clientString = this.clientID + ':' + this.clientSecret;
+    let b64 = btoa(clientString);
+
+    header = header.append('Authorization', `Basic ${b64}`);
     header = header.append('content-type', 'application/x-www-form-urlencoded');
-    let body = {
-      grant_type: 'client_credentials',
-    };
+    let body = `grant_type=authorization_code&redirect_uri=${this.redirectURL}&code=${this.code}`;
     let params = {
       headers: header,
     };
