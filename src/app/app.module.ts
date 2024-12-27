@@ -8,6 +8,8 @@ import { TopNavComponent } from './Components/top-nav/top-nav.component';
 import { SongCardComponent } from './Components/song-card/song-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 //Angular Materials
 
@@ -29,6 +31,14 @@ import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { AppState } from './app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { UserDetailsReducer } from './NGRX/userDetails/userDetails.reducer';
+import { ArtistEffects } from './NGRX/artists/artists.effects';
+import { ArtistsReducer } from './NGRX/artists/artists.reducer';
+import { UserDetailEffects } from './NGRX/userDetails/userDetails.effects';
+import { NewReleasesReducer } from './NGRX/newReleases/newReleases.reducer';
+import { NewReleasesEffects } from './NGRX/newReleases/newReleases.effects';
 
 @NgModule({
   declarations: [
@@ -61,6 +71,17 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonToggleModule,
     MatExpansionModule,
     MatSelectModule,
+    StoreModule.forRoot<AppState>({
+      userDetails: UserDetailsReducer,
+      artists: ArtistsReducer,
+      newReleases: NewReleasesReducer,
+    }),
+    EffectsModule.forRoot([
+      UserDetailEffects,
+      ArtistEffects,
+      NewReleasesEffects,
+    ]),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [],
   bootstrap: [AppComponent],

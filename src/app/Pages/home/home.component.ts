@@ -7,6 +7,15 @@ import {
   MatDialogContent,
 } from '@angular/material/dialog';
 import { TrackModalComponent } from 'src/app/Modals/track-modal/track-modal.component';
+import { Store, select } from '@ngrx/store';
+import { UserDetails } from 'src/app/models/user-details';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/app.state';
+import { Artists } from 'src/app/models/artists';
+import { getArtists } from 'src/app/NGRX/artists/artists.actions';
+import { getUserDetails } from 'src/app/NGRX/userDetails/userDetails.actions';
+import { getNewReleases } from 'src/app/NGRX/newReleases/newReleases.actions';
+import { NewReleases } from 'src/app/models/new-releases';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +39,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     { text: 'Four', cols: 2, rows: 1, color: '#DDBDF1' },
   ];
   dialog = inject(MatDialog);
-  constructor(private spotifyService: SpotifyAPIService) {}
+  constructor(
+    private spotifyService: SpotifyAPIService,
+    private store: Store<AppState>
+  ) {}
   ngOnInit(): void {
     this.fragment = window.location.href.split('?')[1];
     this.params = new URLSearchParams(this.fragment);
@@ -43,10 +55,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getMyDetails() {
-    this.spotifyService.getUserDetails().subscribe((res: any) => {
-      this.userDetails = res;
-
-      this.getUsersPlaylist(this.userDetails?.id);
+    this.store.dispatch(getUserDetails());
+    this.store.select('userDetails').subscribe((userDetails: UserDetails) => {
+      this.userDetails = userDetails;
     });
   }
   reload() {
@@ -54,8 +65,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getNewreleases() {
-    this.spotifyService.getNewReleases().subscribe((res) => {
-      this.newReleases = res;
+    this.store.dispatch(getNewReleases());
+    this.store.select('newReleases').subscribe((newReleases: NewReleases) => {
+      this.newReleases = newReleases;
     });
   }
   getToken() {
@@ -89,8 +101,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (value == 'playlists') {
     } else {
       this.topType = value;
-      this.spotifyService.getUsersTopArtists(value).subscribe((res: any) => {
-        this.topArtist = res.items;
+      this.store.dispatch(getArtists({ value: value }));
+      this.store.select('artists').subscribe((value: Artists) => {
+        this.topArtist = value.items;
       });
     }
   }

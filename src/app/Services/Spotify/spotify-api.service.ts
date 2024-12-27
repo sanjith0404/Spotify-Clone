@@ -1,5 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Artists } from 'src/app/models/artists';
+import { NewReleases } from 'src/app/models/new-releases';
+import { UserDetails } from 'src/app/models/user-details';
 
 @Injectable({
   providedIn: 'root',
@@ -27,20 +31,20 @@ export class SpotifyAPIService {
     return this.http.get(searchURL, params);
   }
 
-  getUserDetails() {
+  getUserDetails(): Observable<UserDetails> {
     let searchURL = 'https://api.spotify.com/v1/me';
     let header = new HttpHeaders();
     header = header.append('Authorization', `Bearer  ${this.token}`);
     let params = { headers: header };
-    return this.http.get(searchURL, params);
+    return this.http.get<UserDetails>(searchURL, params);
   }
 
-  getNewReleases() {
+  getNewReleases(): Observable<NewReleases> {
     let searchURL = 'https://api.spotify.com/v1/browse/new-releases';
     let header = new HttpHeaders();
     header = header.append('Authorization', `Bearer  ${this.token}`);
     let params = { headers: header };
-    return this.http.get(`${searchURL}`, params);
+    return this.http.get<NewReleases>(`${searchURL}`, params);
   }
 
   getNewAlbumsReleases(urls: string) {
@@ -106,12 +110,12 @@ export class SpotifyAPIService {
     let params = { headers: header };
     return this.http.put(`${url}?device_id=${device}`, params);
   }
-  getUsersTopArtists(value: any) {
+  getUsersTopArtists(value: any): Observable<Artists> {
     let searchURL = 'https://api.spotify.com/v1/me/top/';
     let header = new HttpHeaders();
     header = header.append('Authorization', `Bearer  ${this.token}`);
     let params = { headers: header };
-    return this.http.get(`${searchURL}${value}?limit=8`, params);
+    return this.http.get<Artists>(`${searchURL}${value}?limit=8`, params);
   }
   getUsersPlaylist(userName: string) {
     let searchURL = `https://api.spotify.com/v1/users/${userName}/playlists`;

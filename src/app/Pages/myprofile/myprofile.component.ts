@@ -8,8 +8,5 @@ import { SpotifyAPIService } from 'src/app/Services/Spotify/spotify-api.service'
 })
 export class MyprofileComponent implements OnInit {
   constructor(private spotifyService: SpotifyAPIService) {}
-  ngOnInit(): void {
-    this.spotifyService.getCurrentDevice().subscribe((res: any) => {
-    });
-  }
+  ngOnInit(): void {}
 }
